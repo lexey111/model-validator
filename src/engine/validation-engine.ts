@@ -15,11 +15,15 @@ function processRule({rule, validationPath, value, data, result}: TProcessRule) 
 
 	if (typeof rule.active !== 'undefined') {
 		if (rule.active === false) {
+			skipRule('[inactive]', validationPath, result);
+
 			return; // skip as inactive, static
 		}
 
 		if (rule.active !== true) {
 			if (!rule.active(data, value)) {
+				skipRule('[inactive]', validationPath, result);
+
 				return; // skip as inactive, dynamic
 			}
 		}
@@ -27,6 +31,7 @@ function processRule({rule, validationPath, value, data, result}: TProcessRule) 
 
 	rule.validators.forEach(validator => {
 		if (!validator.validator || typeof validator.validator !== 'function') {
+			skipRule('[invalid validator]', validationPath, result);
 			return;
 		}
 		result.stats.processed_validators++;
@@ -76,6 +81,7 @@ function processValidation(data: any, model: TValidationModel, result: TValidati
 		const rule = model[validationPath];
 
 		if (!rule || !rule.validators || rule.validators.length === 0) {
+			skipRule('[overall]', validationPath, result);
 			return; // invalid rule, skip
 		}
 

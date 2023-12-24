@@ -89,7 +89,7 @@ function recursiveProcess({pathArray, targetPath, obj, processingFn, skippingFn,
 		current = current[iteratorIndex];
 	}
 
-	if (currentIndex < pathArray.length - 1) {
+	if (currentIndex < pathArray.length) {
 		recursiveProcess({pathArray, targetPath, obj: current, processingFn, skippingFn, currentIndex});
 	} else {
 		processingFn(current, targetPath);
