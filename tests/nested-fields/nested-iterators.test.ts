@@ -19,7 +19,7 @@ describe('Validate iterators field', () => {
 				'values[].data': {
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: 'Data value is required'
 						}
 					]
@@ -58,7 +58,7 @@ describe('Validate iterators field', () => {
 				'personal.values[].values[].tags': {
 					validators: [
 						{
-							validate: ValidatorArrayLength,
+							validator: ValidatorArrayLength,
 							params: {min: 1},
 							message: 'Tags cannot be empty'
 						}

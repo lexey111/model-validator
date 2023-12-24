@@ -5,7 +5,7 @@ export type TValidatorFn = (value: any, params?: Record<string, any>, data?: any
 export type TValidatorMessage = string | ((data: any, value: any) => string)
 
 export interface IValidator {
-	validate: TValidatorFn
+	validator: TValidatorFn
 	level?: TValidationViolationLevel // default error
 	message?: TValidatorMessage
 	params?: Record<string, any>

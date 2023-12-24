@@ -14,7 +14,7 @@ describe('Validate single field - array', () => {
 				'addresses': {
 					validators: [
 						{
-							validate: ValidatorArrayLength,
+							validator: ValidatorArrayLength,
 							params: {min: 1},
 							message: 'At least 1 address must be declared'
 						}
@@ -39,7 +39,7 @@ describe('Validate single field - array', () => {
 				'addresses': {
 					validators: [
 						{
-							validate: ValidatorArrayLength,
+							validator: ValidatorArrayLength,
 							params: {min: 3},
 							message: 'Invalid array size'
 						}
@@ -64,7 +64,7 @@ describe('Validate single field - array', () => {
 				'addresses': {
 					validators: [
 						{
-							validate: ValidatorArrayLength,
+							validator: ValidatorArrayLength,
 							params: {min: 2},
 							message: 'Invalid array size'
 						}
@@ -86,7 +86,7 @@ describe('Validate single field - array', () => {
 				'addresses': {
 					validators: [
 						{
-							validate: ValidatorArrayLength,
+							validator: ValidatorArrayLength,
 							params: {max: 1},
 							message: 'Invalid array size'
 						}
@@ -111,7 +111,7 @@ describe('Validate single field - array', () => {
 				'addresses': {
 					validators: [
 						{
-							validate: ValidatorArrayLength,
+							validator: ValidatorArrayLength,
 							params: {max: 2},
 							message: 'Invalid array size'
 						}
@@ -136,7 +136,7 @@ describe('Validate single field - array', () => {
 				'addresses': {
 					validators: [
 						{
-							validate: ValidatorArrayLength,
+							validator: ValidatorArrayLength,
 							params: {max: 3},
 							message: 'Invalid array size'
 						}
@@ -158,7 +158,7 @@ describe('Validate single field - array', () => {
 				'addresses': {
 					validators: [
 						{
-							validate: ValidatorArrayLength,
+							validator: ValidatorArrayLength,
 							params: {max: 2, min: 4},
 							message: 'Invalid array size'
 						}
@@ -183,7 +183,7 @@ describe('Validate single field - array', () => {
 				'addresses': {
 					validators: [
 						{
-							validate: ValidatorArrayLength,
+							validator: ValidatorArrayLength,
 							params: {max: 3, min: 1},
 							message: 'Invalid array size'
 						}
@@ -205,7 +205,7 @@ describe('Validate single field - array', () => {
 				'addresses': {
 					validators: [
 						{
-							validate: ValidatorArrayLength,
+							validator: ValidatorArrayLength,
 							message: 'Invalid array size'
 						}
 					]

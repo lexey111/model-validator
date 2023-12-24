@@ -11,7 +11,7 @@ describe('Validate single field - messages', () => {
 			'name': {
 				validators: [
 					{
-						validate: ValidatorStringRequired,
+						validator: ValidatorStringRequired,
 						message: 'Message from validator'
 					}
 				]
@@ -28,7 +28,7 @@ describe('Validate single field - messages', () => {
 				message: 'Message from rule',
 				validators: [
 					{
-						validate: ValidatorStringRequired,
+						validator: ValidatorStringRequired,
 					}
 				]
 			},
@@ -44,7 +44,7 @@ describe('Validate single field - messages', () => {
 			'name': {
 				validators: [
 					{
-						validate: ValidatorStringRequired,
+						validator: ValidatorStringRequired,
 					}
 				]
 			},
@@ -61,7 +61,7 @@ describe('Validate single field - messages', () => {
 				'name': {
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: () => ''
 						}
 					]
@@ -78,7 +78,7 @@ describe('Validate single field - messages', () => {
 				'name': {
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: () => null as any
 						}
 					]
@@ -95,7 +95,7 @@ describe('Validate single field - messages', () => {
 				'name': {
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: () => 42 as any
 						}
 					]
@@ -112,7 +112,7 @@ describe('Validate single field - messages', () => {
 				'name': {
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: () => [1, 2, 3] as any
 						}
 					]
@@ -132,7 +132,7 @@ describe('Validate single field - messages', () => {
 					message: () => '',
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 						}
 					]
 				},
@@ -149,7 +149,7 @@ describe('Validate single field - messages', () => {
 					message: () => null as any,
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 						}
 					]
 				},
@@ -166,7 +166,7 @@ describe('Validate single field - messages', () => {
 					message: () => 42 as any,
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 						}
 					]
 				},
@@ -183,7 +183,7 @@ describe('Validate single field - messages', () => {
 					message: () => [1, 2, 3] as any,
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 						}
 					]
 				},
@@ -201,7 +201,7 @@ describe('Validate single field - messages', () => {
 			'name': {
 				validators: [
 					{
-						validate: ValidatorStringRequired,
+						validator: ValidatorStringRequired,
 						message: (data) => `Name should not be empty, ${data.surname}!`
 					}
 				]
@@ -219,7 +219,7 @@ describe('Validate single field - messages', () => {
 				message: (data) => `Name should not be empty, ${data.surname}!`,
 				validators: [
 					{
-						validate: ValidatorStringRequired,
+						validator: ValidatorStringRequired,
 					}
 				]
 			},
@@ -237,7 +237,7 @@ describe('Validate single field - messages', () => {
 					message: (data) => `Name should not be empty, ${data.surname}!`,
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: 'Message 1'
 						}
 					]
@@ -255,7 +255,7 @@ describe('Validate single field - messages', () => {
 					message: (data) => `Name should not be empty, ${data.surname}!`,
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: () => 'Message 1',
 						}
 					]
@@ -273,7 +273,7 @@ describe('Validate single field - messages', () => {
 					message: 'Static message',
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: 'Message 1'
 						}
 					]
@@ -291,7 +291,7 @@ describe('Validate single field - messages', () => {
 					message: 'Static message',
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: () => 'Message 1',
 						}
 					]

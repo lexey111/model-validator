@@ -7,7 +7,7 @@ const SingleValidationModel: TValidationModel = {
 	'name': {
 		validators: [
 			{
-				validate: ValidatorStringRequired,
+				validator: ValidatorStringRequired,
 				message: 'Name is required'
 			}
 		]

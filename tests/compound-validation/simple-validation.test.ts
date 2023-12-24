@@ -25,7 +25,7 @@ const SimpleValidationModel: TValidationModel = {
 	'name': {
 		validators: [
 			{
-				validate: ValidatorStringRequired
+				validator: ValidatorStringRequired
 			}
 		]
 	},
@@ -33,11 +33,11 @@ const SimpleValidationModel: TValidationModel = {
 		level: 'warning',
 		validators: [
 			{
-				validate: ValidatorStringRequired,
+				validator: ValidatorStringRequired,
 				message: 'Please fill the email field if you want to receive spam'
 			},
 			{
-				validate: ValidatorEmail,
+				validator: ValidatorEmail,
 				params: {skipIfEmpty: true},
 				message: 'Please use correct email'
 			}
@@ -47,7 +47,7 @@ const SimpleValidationModel: TValidationModel = {
 		level: 'notice',
 		validators: [
 			{
-				validate: ValidatorStringRequired,
+				validator: ValidatorStringRequired,
 				message: (data) => `${data.name || 'Unknown'}, please fill the Surname field`
 			}
 		]

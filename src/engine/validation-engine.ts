@@ -26,12 +26,12 @@ function processRule({rule, validationPath, value, data, result}: TProcessRule) 
 	}
 
 	rule.validators.forEach(validator => {
-		if (!validator.validate || typeof validator.validate !== 'function') {
+		if (!validator.validator || typeof validator.validator !== 'function') {
 			return;
 		}
 		result.stats.processed_validators++;
 
-		const validation = validator.validate(value, validator.params, data);
+		const validation = validator.validator(value, validator.params, data);
 
 		if (typeof validation === 'undefined') {
 			result.stats.total_skipped++;

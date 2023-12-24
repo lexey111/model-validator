@@ -10,7 +10,7 @@ describe('Validate single field - levels', () => {
 			'name': {
 				validators: [
 					{
-						validate: ValidatorStringRequired,
+						validator: ValidatorStringRequired,
 						message: 'Name is required',
 					}
 				]
@@ -25,7 +25,7 @@ describe('Validate single field - levels', () => {
 			'name': {
 				validators: [
 					{
-						validate: ValidatorStringRequired,
+						validator: ValidatorStringRequired,
 						message: 'Name is required',
 						level: 'error'
 					}
@@ -41,7 +41,7 @@ describe('Validate single field - levels', () => {
 			'name': {
 				validators: [
 					{
-						validate: ValidatorStringRequired,
+						validator: ValidatorStringRequired,
 						message: 'Name is required',
 						level: 'warning'
 					}
@@ -57,7 +57,7 @@ describe('Validate single field - levels', () => {
 			'name': {
 				validators: [
 					{
-						validate: ValidatorStringRequired,
+						validator: ValidatorStringRequired,
 						message: 'Name is required',
 						level: 'notice'
 					}
@@ -74,7 +74,7 @@ describe('Validate single field - levels', () => {
 				level: 'error',
 				validators: [
 					{
-						validate: ValidatorStringRequired,
+						validator: ValidatorStringRequired,
 						message: 'Name is required',
 					}
 				]
@@ -90,7 +90,7 @@ describe('Validate single field - levels', () => {
 				level: 'warning',
 				validators: [
 					{
-						validate: ValidatorStringRequired,
+						validator: ValidatorStringRequired,
 						message: 'Name is required',
 					}
 				]
@@ -106,7 +106,7 @@ describe('Validate single field - levels', () => {
 				level: 'notice',
 				validators: [
 					{
-						validate: ValidatorStringRequired,
+						validator: ValidatorStringRequired,
 						message: 'Name is required',
 					}
 				]
@@ -123,7 +123,7 @@ describe('Validate single field - levels', () => {
 					level: 'notice',
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: 'Name is required',
 							level: 'error',
 						}

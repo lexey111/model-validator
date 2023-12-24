@@ -19,7 +19,7 @@ describe('Validate nested field', () => {
 				'address.line1.streetAddress': {
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: 'Street address is required'
 						}
 					]
@@ -46,7 +46,7 @@ describe('Validate nested field', () => {
 				'address.line2.streetAddress': {
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: 'Street address is required'
 						}
 					]
@@ -68,7 +68,7 @@ describe('Validate nested field', () => {
 				'addresses': {
 					validators: [
 						{
-							validate: ValidatorArrayLength,
+							validator: ValidatorArrayLength,
 							params: {min: 1},
 							message: 'At least 1 address must be declared'
 						}
@@ -93,7 +93,7 @@ describe('Validate nested field', () => {
 					'name[0]': {
 						validators: [
 							{
-								validate: ValidatorStringRequired,
+								validator: ValidatorStringRequired,
 								message: 'Item must be present'
 							}
 						]
@@ -114,7 +114,7 @@ describe('Validate nested field', () => {
 					'addresses[0]': {
 						validators: [
 							{
-								validate: ValidatorStringRequired,
+								validator: ValidatorStringRequired,
 								message: 'Item must be present'
 							}
 						]
@@ -135,7 +135,7 @@ describe('Validate nested field', () => {
 					'addresses[1]': {
 						validators: [
 							{
-								validate: ValidatorStringRequired,
+								validator: ValidatorStringRequired,
 								message: 'Item must be present'
 							}
 						]
@@ -156,7 +156,7 @@ describe('Validate nested field', () => {
 					'addresses[2]': {
 						validators: [
 							{
-								validate: ValidatorStringRequired,
+								validator: ValidatorStringRequired,
 								message: 'Item must be present'
 							}
 						]
@@ -177,7 +177,7 @@ describe('Validate nested field', () => {
 					'addresses[0]': {
 						validators: [
 							{
-								validate: ValidatorStringLength,
+								validator: ValidatorStringLength,
 								params: {min: 20},
 								message: (_, value) => `Min length is 20, but ${value.length} is passed.`
 							}
@@ -198,7 +198,7 @@ describe('Validate nested field', () => {
 					'addresses[1]': {
 						validators: [
 							{
-								validate: ValidatorStringLength,
+								validator: ValidatorStringLength,
 								params: {min: 20},
 								message: 'Min length is 20'
 							}

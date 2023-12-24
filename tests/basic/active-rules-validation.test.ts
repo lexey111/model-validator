@@ -13,7 +13,7 @@ describe('Validate rule active/non active', () => {
 				'name': {
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: 'Name is required'
 						}
 					]
@@ -34,7 +34,7 @@ describe('Validate rule active/non active', () => {
 				'name': {
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: 'Name is required'
 						}
 					]
@@ -42,7 +42,7 @@ describe('Validate rule active/non active', () => {
 				'surName': {
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: 'Surname is required'
 						}
 					]
@@ -64,7 +64,7 @@ describe('Validate rule active/non active', () => {
 					active: true,
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: 'Name is required'
 						}
 					]
@@ -72,7 +72,7 @@ describe('Validate rule active/non active', () => {
 				'surName': {
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: 'Surname is required'
 						}
 					]
@@ -92,7 +92,7 @@ describe('Validate rule active/non active', () => {
 					active: false,
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: 'Name is required'
 						}
 					]
@@ -100,7 +100,7 @@ describe('Validate rule active/non active', () => {
 				'surName': {
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: 'Surname is required'
 						}
 					]
@@ -120,7 +120,7 @@ describe('Validate rule active/non active', () => {
 					active: () => true,
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: 'Name is required'
 						}
 					]
@@ -128,7 +128,7 @@ describe('Validate rule active/non active', () => {
 				'surName': {
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: 'Surname is required'
 						}
 					]
@@ -148,7 +148,7 @@ describe('Validate rule active/non active', () => {
 					active: () => false,
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: 'Name is required'
 						}
 					]
@@ -156,7 +156,7 @@ describe('Validate rule active/non active', () => {
 				'surName': {
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: 'Surname is required'
 						}
 					]
@@ -176,7 +176,7 @@ describe('Validate rule active/non active', () => {
 					active: (data) => data.surName !== 'Smith',
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: 'Name is required'
 						}
 					]
@@ -184,7 +184,7 @@ describe('Validate rule active/non active', () => {
 				'surName': {
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: 'Surname is required'
 						}
 					]
@@ -204,7 +204,7 @@ describe('Validate rule active/non active', () => {
 					active: (data) => data.surName !== 'Smith',
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: 'Name is required'
 						}
 					]
@@ -212,7 +212,7 @@ describe('Validate rule active/non active', () => {
 				'surName': {
 					validators: [
 						{
-							validate: ValidatorStringRequired,
+							validator: ValidatorStringRequired,
 							message: 'Surname is required'
 						}
 					]
@@ -232,7 +232,7 @@ describe('Validate rule active/non active', () => {
 					active: (data, value) => (value !== 'John'),
 					validators: [
 						{
-							validate: ValidatorStringLength,
+							validator: ValidatorStringLength,
 							params: {min: 10},
 							message: 'Minimal length of name, if not "John", is 10'
 						}
@@ -251,7 +251,7 @@ describe('Validate rule active/non active', () => {
 					active: (data, value) => (value !== 'John'),
 					validators: [
 						{
-							validate: ValidatorStringLength,
+							validator: ValidatorStringLength,
 							params: {min: 10},
 							message: 'Minimal length of name, if not "John", is 10'
 						}
@@ -272,7 +272,7 @@ describe('Validate rule active/non active', () => {
 					active: (data, value) => (value !== 'John'),
 					validators: [
 						{
-							validate: ValidatorStringLength,
+							validator: ValidatorStringLength,
 							params: {min: 10},
 							message: 'Minimal length of name, if not "John", is 10'
 						}
