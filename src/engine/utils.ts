@@ -42,7 +42,7 @@ type TGetMessage = {
 	ruleMessage: TValidatorMessage
 	path: string
 	data: any
-	value: any
+	value?: any
 }
 
 export function getMessage({validatorMessage, ruleMessage, path, data, value}: TGetMessage): string {

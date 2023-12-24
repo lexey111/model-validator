@@ -4,6 +4,8 @@ export type TValidatorFn = (value: any, params?: Record<string, any>, data?: any
 
 export type TValidatorMessage = string | ((data: any, value: any) => string)
 
+export type TPostValidatorFn = (data: any, result: TValidationResult) => TValidatorFnResult
+
 export interface IValidator {
 	validator: TValidatorFn
 	level?: TValidationViolationLevel // default error
@@ -18,6 +20,7 @@ export type TValidationRule = {
 	message?: TValidatorMessage
 	active?: boolean | ((data: any, value: any) => boolean) // default true
 	validators?: Array<IValidator>
+	postvalidator?: TPostValidatorFn
 }
 
 export type TValidationModel = Record<string, TValidationRule>;

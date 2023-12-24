@@ -94,7 +94,7 @@ describe('Validate single field', () => {
 		const result = ValidationEngine.validate({surname: 'name'}, SingleValidationModel);
 
 		expect(result.level).toBe('none');
-		expect(result.stats.processed_rules).toBe(0);
+		expect(result.stats.processed_rules).toBe(1);
 		expect(result.stats.total_errors).toBe(0);
 		expect(result.stats.total_notices).toBe(0);
 		expect(result.stats.total_skipped).toBe(1);

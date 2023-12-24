@@ -11,8 +11,6 @@ type TProcessRule = {
 };
 
 function processRule({rule, validationPath, value, data, result}: TProcessRule) {
-	result.stats.processed_rules++;
-
 	if (typeof rule.active !== 'undefined') {
 		if (rule.active === false) {
 			skipRule('[inactive]', validationPath, result);
@@ -71,19 +69,26 @@ function processRule({rule, validationPath, value, data, result}: TProcessRule) 
 	});
 }
 
-function skipRule(pathChunk: string, path, result: TValidationResult) {
+function skipRule(pathChunk: string, path: string, result: TValidationResult) {
 	result.stats.total_skipped++;
 	result.skipped.push(path + ', ' + pathChunk);
 }
 
 function processValidation(data: any, model: TValidationModel, result: TValidationResult) {
+	const postvalidators = [];
+
 	Object.keys(model).forEach(validationPath => {
 		const rule = model[validationPath];
+		if (rule.postvalidator) {
+			postvalidators.push(validationPath);
+			return;
+		}
 
 		if (!rule || !rule.validators || rule.validators.length === 0) {
 			skipRule('[overall]', validationPath, result);
 			return; // invalid rule, skip
 		}
+		result.stats.processed_rules++;
 
 		traverseObject({
 			path: validationPath,
@@ -104,11 +109,65 @@ function processValidation(data: any, model: TValidationModel, result: TValidati
 			}
 		});
 	});
+
+	postprocessResult(result);
+
+	// post validation
+	if (postvalidators.length > 0) {
+		postvalidators.forEach(validationPath => {
+			const rule = model[validationPath];
+
+			result.stats.processed_rules++;
+
+			const validation = rule.postvalidator(data, result);
+
+			if (typeof validation === 'undefined') {
+				result.stats.total_skipped++;
+				return;
+			}
+
+			if (validation === true) {
+				return;
+			}
+
+			const violationLevel = rule.level || 'error';
+
+			if (!['error', 'warning', 'notice'].includes(violationLevel)) {
+				return;
+			}
+
+			const message = getMessage({
+				validatorMessage: undefined,
+				ruleMessage: rule.message,
+				path: validationPath,
+				data
+			});
+
+			const resultKey = violationLevel + 's'; // errorS, warningS, noticeS
+
+			if (!result[resultKey][validationPath]) {
+				result[resultKey][validationPath] = [message];
+			} else {
+				result[resultKey][validationPath].push(message);
+			}
+		});
+		postprocessResult(result);
+	}
 }
 
-// TODO: aggregation
-// TODO: post-processing?
-// TODO: dependent rules?
+function postprocessResult(result: TValidationResult) {
+	result.stats.total_errors = Object.keys(result.errors).length;
+	result.stats.total_warnings = Object.keys(result.warnings).length;
+	result.stats.total_notices = Object.keys(result.notices).length;
+
+	if (result.stats.total_errors > 0) {
+		result.level = 'error';
+	} else if (result.stats.total_warnings > 0) {
+		result.level = 'warning';
+	} else if (result.stats.total_notices > 0) {
+		result.level = 'notice';
+	}
+}
 
 export const ValidationEngine: IValidationEngine = {
 	validate: (data: Record<string, any>, model: TValidationModel) => {
@@ -137,18 +196,6 @@ export const ValidationEngine: IValidationEngine = {
 
 		processValidation(data, model, result);
 
-		// postprocessing
-		result.stats.total_errors = Object.keys(result.errors).length;
-		result.stats.total_warnings = Object.keys(result.warnings).length;
-		result.stats.total_notices = Object.keys(result.notices).length;
-
-		if (result.stats.total_errors > 0) {
-			result.level = 'error';
-		} else if (result.stats.total_warnings > 0) {
-			result.level = 'warning';
-		} else if (result.stats.total_notices > 0) {
-			result.level = 'notice';
-		}
 
 		const end = performance.now();
 

@@ -55,7 +55,7 @@ describe('Validate nested field', () => {
 
 		expect(result.level).toBe('none');
 		expect(result.stats.total_skipped).toBe(1);
-		expect(result.stats.processed_rules).toBe(0);
+		expect(result.stats.processed_rules).toBe(1);
 	});
 
 	test('should reach the nested array (size check)', () => {
@@ -207,7 +207,7 @@ describe('Validate nested field', () => {
 				});
 
 			expect(result.level).toBe('none');
-			expect(result.stats.processed_rules).toBe(0);
+			expect(result.stats.processed_rules).toBe(1);
 			expect(result.stats.total_errors).toBe(0);
 			expect(result.stats.total_notices).toBe(0);
 			expect(result.stats.total_skipped).toBe(1);

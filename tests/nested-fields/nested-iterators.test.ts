@@ -28,7 +28,7 @@ describe('Validate iterators field', () => {
 		);
 
 		expect(result.level).toBe('error');
-		expect(result.stats.processed_rules).toBe(4);
+		expect(result.stats.processed_rules).toBe(1);
 		expect(result.stats.total_errors).toBe(3);
 		expect(result.stats.total_notices).toBe(0);
 		expect(result.stats.total_skipped).toBe(0);
@@ -68,7 +68,7 @@ describe('Validate iterators field', () => {
 		);
 
 		expect(result.level).toBe('error');
-		expect(result.stats.processed_rules).toBe(7);
+		expect(result.stats.processed_rules).toBe(1);
 		expect(result.stats.total_errors).toBe(5);
 		expect(result.stats.total_notices).toBe(0);
 		expect(result.stats.total_skipped).toBe(0);
