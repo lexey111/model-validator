@@ -3,7 +3,8 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Node",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "outDir": "dist"
   },
-  "include": ["src/**/*.d.ts", "src/**/*.ts", "tests/basic/basic-engine.test.ts"],
+  "include": ["src/**/*.d.ts", "src/**/*.ts"],
 }
