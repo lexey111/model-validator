@@ -195,7 +195,7 @@ describe('Validate single field - array', () => {
 		expect(result.level).toBe('none');
 	});
 
-	test('should check array size (min and max not setr, fail)', () => {
+	test('should check array size (min and max not set, fail)', () => {
 		const result = ValidationEngine.validate(
 			{
 				name: 'John',
@@ -215,5 +215,4 @@ describe('Validate single field - array', () => {
 		expect(result).toBeDefined();
 		expect(result.level).toBe('error');
 	});
-
 });

@@ -53,5 +53,4 @@ describe('Validator for emails', () => {
 		const result = ValidatorEmail(undefined, {skipIfEmpty: true});
 		expect(result).toBeUndefined();
 	});
-
 });

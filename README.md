@@ -4,7 +4,7 @@ This small package is designed for model-level validation of JS/TS projects.
 
 What does "model-level" mean? It's simple.
 
-Usually, various frameworks like React, Angular or other frameworks have components and "component" granularity.
+Usually, various frameworks like React, Angular or other have components and "component-level" granularity of a validation.
 
 It means, we have a data _model_ like
 
@@ -16,8 +16,8 @@ const UserData = {
 	},
 	contacts: [
 		{type: 'email', value: 'johndoe@mail.com', default: true},
-		{type: 'cellular', value: '8500123456678'},
-		{type: 'work-phone', value: '85006543210'}
+		{type: 'cellular', value: '+5500123456678'},
+		{type: 'work-phone', value: '+55006543210'}
 	],
 	preferences: {
 		colorTheme: 'dark',
@@ -26,38 +26,48 @@ const UserData = {
 }
 ```
 
-and so on.
-
 We are storing this data somewhere, in a _service_, in a _store_, in some _context_. And, then, we are displaying these values by different components:
 
 ```typescript jsx
-export const PersonalData:React.FC = ({data: UserData}) => {
+export const PersonalData: React.FC = ({data: UserData}) => {
+	// Some code to determine if there any error
 	return <fieldset>
-        <label for="user_name">Name</label>
-        <input type="text"
-               name="user_name"
-               value={data.name}
-               onChange={(e) => changeData('name', e.target.value)}
-        />
+		<div className={'some_code_to_reflect_the_error_state'}>
+			<label for="user_name">Name</label>
+			<input type="text"
+			       name="user_name"
+			       value={data.name}
+			       onChange={(e) => changeData('name', e.target.value)}
+			/>
+			{/* Some error message(s) for the field */}
+		</div>
 
-        <label for="user_surname">Name</label>
-        <input type="text"
-               name="user_surname"
-               value={data.surname}
-               onChange={(e) => changeData('surname', e.target.value)}
-        />
-    </fieldset>;
+		<div className={'some_code_to_reflect_the_error_state'}>
+			<label for="user_surname">Name</label>
+			<input type="text"
+			       name="user_surname"
+			       value={data.surname}
+			       onChange={(e) => changeData('surname', e.target.value)}
+			/>
+			{/* Some error message(s) for the field */}
+		</div>
+	</fieldset>;
 }
 ```
 
-For sure, we need to validate data before submitting the form.
+And for sure, we need to validate data before submitting the form.
 
-And with _component granularity_, we have to add such validation for every field at the component level. We have to take care of `user.personalData.name`, `user.contacts` and every field we need to validate.
+With _component granularity_, we have to add such validations for every single field at the component level. We have to take care of `user.personalData.name`, `user.contacts` and every field we need to validate.
+
+Then we need to check the overall state before sending. And then - check the transmitted data again, on the server side.
 
 There are plenty of libraries we can use to simplify the process: e.g., Formik. But anyway, there –
 
 * We will have validation at the field level, and we need to aggregate it somehow. In other words, we have 3 "dumb" components that map to a common model, and each component has its own validation, and you need some way to check if the "Submit" button should be disabled.
-* We can have a "smart" container component (or _store_ or _service_) and more "dumb" view components, and then share the validation state as `props`. This is closer to the `model level`.
+
+* Or we can have a "smart" container component (or _store_ or _service_) and more "dumb" view components, and then share the validation state as `props`. This is closer to the `model level`.
+
+With model-level validation we have one, single `data model`, one, single `data validation model` and one, single `validation check result`.
 
 ## Model-level validation
 
@@ -85,7 +95,7 @@ const UserValidation = {
 			},
 		]
 	},
-	'contacts': {
+	'contacts_aggregate': {
 		validators: [
 			{
 				validator: ValidatorArrayLength,
@@ -94,7 +104,7 @@ const UserValidation = {
 			}
 		]
 	},
-	'user': {
+	'user_aggregate': {
 		message: 'User data is invalid',
 		postvalidator: (_, result) => {
 			return (countErrorsLike('personalData', result) +
@@ -104,7 +114,7 @@ const UserValidation = {
 }
 ```
 
-Here we can get consistency between model and state, a single source of truth:
+Here we can reach the consistency between model and state, and have a single source of truth:
 
 ```js
 const result = ValidationEngine.validate(UserData, UserValidation);
@@ -151,7 +161,7 @@ Or, with empty `name` field:
 	},
 	errors: {
 		'personalData.name': ['Name is required'],
-		user: ['User data is invalid']
+		'user_aggregate': ['User data is invalid']
 	},
 	warnings: {},
 	notices: {},
@@ -159,7 +169,14 @@ Or, with empty `name` field:
 }
 ```
 
-All we need to do is display the messages in appropriate place and disable the "Submit" button.
+All we need now to do is display the messages in appropriate place, and disable the "Submit" button.
+
+It's a bit like a state management architecture: instead of getting data, then decomposing it into pieces and binding it to a component by going through a tree of nested components, we have a single context that is available everywhere.
+
+This is a centralized solution where the developer has full control over performing validation, retrieving results and displaying state. The state is completely separate from the view, but is highly optimized for use in the UI.
+
+Due to the fact that the solution is framework independent, we can run the same validation model on both client and server side. Moreover, we can keep the validation models on server and load them on-demand to the client, or construct the validation models on the fly.
+
 
 ## Usage
 
@@ -458,6 +475,22 @@ The validation engine runs the validator, and if there is a violation (returns `
 _Corresponding_ determined by the `level` of validator, or of the rule, or 'error', if nothing.
 
 _Message_ calculates as a message from the validator, or from the rule, or automatic as 'Empty message, %path%'.
+
+#### Skipped
+
+`skipped` is a technical field (array) of rules that were skipped during validation because they are invalid (non-existent path, invalid rule declaration). E.g., if in model we have `form.user.data` field but in the validation model we have declared a rule with `form.users.data`, this rule will be placed to the `skipped` array as a `form.users.data, users` because `form` does not have a field `users`.
+
+It is recommended to check `stats.total_skipped` and the contents of the `skipped` field while debugging. It may not be a bug if some rules were put there, depends on the model and rules, but it is better to double-check.
+
+An example of a valid rule that may be missing but that is not an error:
+
+```ts
+'user.contacts[1]': {
+	validators: [ValidatorEmail]
+}
+```
+
+It will legally put to `skipped` while we have only one element in `contacts`, and this is OK if we have the phone number for the first item, and optional email for second.
 
 ### Aggregates
 
