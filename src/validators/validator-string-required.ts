@@ -1,6 +1,6 @@
 import type { TValidatorFn } from '../engine/validation-types';
 
-export const ValidatorStringRequired: TValidatorFn = (str: string, params?: {allowWhitespace?: boolean}) => {
+export const ValidatorStringRequired: TValidatorFn = (str: string, params?: {allowWhitespaces?: boolean}) => {
     if (!str) {
         // '', null, undefined, etc.
         return false;
@@ -10,7 +10,7 @@ export const ValidatorStringRequired: TValidatorFn = (str: string, params?: {all
         return false;
     }
 
-    if (params?.allowWhitespace === true) {
+    if (params?.allowWhitespaces === true) {
         return true;
     }
 

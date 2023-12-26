@@ -132,6 +132,18 @@ describe('Validator string length', () => {
 
 		const result2 = ValidatorStringLength('abc   ', {min: 5, trim: true});
 		expect(result2).toBe(false);
+
+		const result3 = ValidatorStringLength('   abc', {min: 5});
+		expect(result3).toBe(true);
+
+		const result4 = ValidatorStringLength('   abc', {min: 5, trim: true});
+		expect(result4).toBe(false);
+
+		const result5 = ValidatorStringLength('   abc   ', {min: 5});
+		expect(result5).toBe(true);
+
+		const result6 = ValidatorStringLength('   abc   ', {min: 5, trim: true});
+		expect(result6).toBe(false);
 	});
 
 	test('should check min and max', () => {

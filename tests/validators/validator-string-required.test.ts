@@ -51,17 +51,17 @@ describe('Validator string required', () => {
 		expect(result).toBe(false);
 	});
 
-	test('should pass on whitespace string if allowWhitespace === true', () => {
-		const result1 = ValidatorStringRequired(' ', {allowWhitespace: true});
+	test('should pass on whitespace string if allowWhitespaces === true', () => {
+		const result1 = ValidatorStringRequired(' ', {allowWhitespaces: true});
 		expect(result1).toBe(true);
 
-		const result2 = ValidatorStringRequired('\t', {allowWhitespace: true});
+		const result2 = ValidatorStringRequired('\t', {allowWhitespaces: true});
 		expect(result2).toBe(true);
 
-		const result3 = ValidatorStringRequired('\r', {allowWhitespace: true});
+		const result3 = ValidatorStringRequired('\r', {allowWhitespaces: true});
 		expect(result3).toBe(true);
 
-		const result4 = ValidatorStringRequired('\n', {allowWhitespace: true});
+		const result4 = ValidatorStringRequired('\n', {allowWhitespaces: true});
 		expect(result4).toBe(true);
 	});
 
