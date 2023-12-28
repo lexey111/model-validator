@@ -175,8 +175,9 @@ It's a bit like a state management architecture: instead of getting data, then d
 
 This is a centralized solution where the developer has full control over performing validation, retrieving results and displaying state. The state is completely separate from the view, but is highly optimized for use in the UI.
 
-Due to the fact that the solution is framework independent, we can run the same validation model on both client and server side. Moreover, we can keep the validation models on server and load them on-demand to the client, or construct the validation models on the fly.
+Due to the fact that the solution is framework-independent, we can run the same validation model on both client and server side. Moreover, we can keep the validation models on server and load them on-demand to the client, or construct the validation models on the fly.
 
+And, of course, with this approach we can get very convenient unit testing and even create our own test automation framework (e.g., a set of data that should pass, a set of data that should fail, and an automated run).
 
 ## Usage
 
