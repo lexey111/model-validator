@@ -52,5 +52,127 @@ describe('Aggregate compound validation + helpers', () => {
 		expect(result.stats.total_skipped).toBe(0);
 		expect(result.stats.total_warnings).toBe(0);
 	});
+});
 
+describe('Total calculation', () => {
+	test('should calculate errors', () => {
+		const result = ValidationEngine.validate(BadData, {
+			'user.data.name': {
+				message: 'Name is required',
+				validators: [
+					{
+						validator: ValidatorStringRequired,
+					},
+					{
+						message: 'Custom error-1',
+						validator: () => false,
+					},
+					{
+						message: 'Custom error-2',
+						validator: () => false,
+					}
+				]
+			}
+		});
+
+		expect(result.level).toBe('error');
+
+		expect(result.stats.processed_rules).toBe(1);
+		expect(result.stats.total_errors).toBe(3);
+		expect(result.stats.total_notices).toBe(0);
+		expect(result.stats.total_warnings).toBe(0);
+		expect(result.stats.total_skipped).toBe(0);
+	});
+
+	test('should calculate warnings', () => {
+		const result = ValidationEngine.validate(BadData, {
+			'user.data.name': {
+				message: 'Name is required',
+				level: 'warning',
+				validators: [
+					{
+						validator: ValidatorStringRequired,
+					},
+					{
+						message: 'Custom error-1',
+						validator: () => false,
+					},
+					{
+						message: 'Custom error-2',
+						validator: () => false,
+					}
+				]
+			}
+		});
+
+		expect(result.level).toBe('warning');
+
+		expect(result.stats.processed_rules).toBe(1);
+		expect(result.stats.total_errors).toBe(0);
+		expect(result.stats.total_notices).toBe(0);
+		expect(result.stats.total_warnings).toBe(3);
+		expect(result.stats.total_skipped).toBe(0);
+	});
+
+	test('should calculate notices', () => {
+		const result = ValidationEngine.validate(BadData, {
+			'user.data.name': {
+				message: 'Name is required',
+				level: 'notice',
+				validators: [
+					{
+						validator: ValidatorStringRequired,
+					},
+					{
+						message: 'Custom error-1',
+						validator: () => false,
+					},
+					{
+						message: 'Custom error-2',
+						validator: () => false,
+					}
+				]
+			}
+		});
+
+		expect(result.level).toBe('notice');
+
+		expect(result.stats.processed_rules).toBe(1);
+		expect(result.stats.total_errors).toBe(0);
+		expect(result.stats.total_notices).toBe(3);
+		expect(result.stats.total_warnings).toBe(0);
+		expect(result.stats.total_skipped).toBe(0);
+	});
+
+	test('should calculate everything', () => {
+		const result = ValidationEngine.validate(BadData, {
+			'user.data.name': {
+				message: 'Name is required',
+				validators: [
+					{
+						level: 'notice',
+						validator: ValidatorStringRequired,
+					},
+					{
+						level: 'warning',
+						message: 'Custom error-1',
+						validator: () => false,
+					},
+					{
+						level: 'error',
+						message: 'Custom error-2',
+						validator: () => false,
+					}
+				]
+			}
+		});
+
+		expect(result.level).toBe('error');
+
+		expect(result.stats.processed_rules).toBe(1);
+		expect(result.stats.total_errors).toBe(1);
+		expect(result.stats.total_notices).toBe(1);
+		expect(result.stats.total_warnings).toBe(1);
+		expect(result.stats.total_skipped).toBe(0);
+	});
 });
