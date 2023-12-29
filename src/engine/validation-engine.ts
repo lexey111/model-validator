@@ -155,10 +155,11 @@ function processValidation(data: any, model: TValidationModel, result: TValidati
 	}
 }
 
+// TODO: total_errors and rules_errors
 function postprocessResult(result: TValidationResult) {
-	result.stats.total_errors = Object.keys(result.errors).length;
-	result.stats.total_warnings = Object.keys(result.warnings).length;
-	result.stats.total_notices = Object.keys(result.notices).length;
+	result.stats.total_errors = Object.keys(result.errors).reduce((prev, current) => prev + result.errors[current].length, 0);
+	result.stats.total_warnings = Object.keys(result.warnings).reduce((prev, current) => prev + result.warnings[current].length, 0);
+	result.stats.total_notices = Object.keys(result.notices).reduce((prev, current) => prev + result.notices[current].length, 0);
 
 	if (result.stats.total_errors > 0) {
 		result.level = 'error';
