@@ -61,6 +61,8 @@ function processRule({rule, validationPath, value, data, result}: TProcessRule) 
 
 		const resultKey = violationLevel + 's'; // errorS, warningS, noticeS
 
+		result.stats['total_' + violationLevel + 's'] += 1;
+
 		if (!result[resultKey][validationPath]) {
 			result[resultKey][validationPath] = [message];
 		} else {
@@ -150,16 +152,14 @@ function processValidation(data: any, model: TValidationModel, result: TValidati
 			} else {
 				result[resultKey][validationPath].push(message);
 			}
+
+			result.stats['total_' + violationLevel + 's'] += 1;
 		});
 		postprocessResult(result);
 	}
 }
 
-// TODO: total_errors and rules_errors
 function postprocessResult(result: TValidationResult) {
-	result.stats.total_errors = Object.keys(result.errors).reduce((prev, current) => prev + result.errors[current].length, 0);
-	result.stats.total_warnings = Object.keys(result.warnings).reduce((prev, current) => prev + result.warnings[current].length, 0);
-	result.stats.total_notices = Object.keys(result.notices).reduce((prev, current) => prev + result.notices[current].length, 0);
 
 	if (result.stats.total_errors > 0) {
 		result.level = 'error';

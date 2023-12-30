@@ -1,13 +1,49 @@
 import {TValidationResult} from "./validation-types";
 
-export function countErrorsLike(key: string, result: TValidationResult): number {
-	return Object.keys(result.errors).filter(errorPath => errorPath.indexOf(key) !== -1).length;
+export function countErrorsLike(key: string, result: TValidationResult, exact = false): number {
+	if (exact) {
+		return result.errors[key].length;
+	}
+
+	const allKeys = Object.keys(result.errors).filter(errorPath => errorPath.indexOf(key) !== -1);
+	return allKeys.reduce((prev, current) => prev + result.errors[current].length, 0);
 }
 
-export function countWarningsLike(key: string, result: TValidationResult): number {
-	return Object.keys(result.warnings).filter(warningPath => warningPath.indexOf(key) !== -1).length;
+export function countWarningsLike(key: string, result: TValidationResult, exact = false): number {
+	if (exact) {
+		return result.warnings[key].length;
+	}
+
+	const allKeys = Object.keys(result.warnings).filter(errorPath => errorPath.indexOf(key) !== -1);
+	return allKeys.reduce((prev, current) => prev + result.warnings[current].length, 0);
 }
 
-export function countNoticesLike(key: string, result: TValidationResult): number {
-	return Object.keys(result.notices).filter(noticePath => noticePath.indexOf(key) !== -1).length;
+export function countNoticesLike(key: string, result: TValidationResult, exact = false): number {
+	if (exact) {
+		return result.notices[key].length;
+	}
+
+	const allKeys = Object.keys(result.notices).filter(errorPath => errorPath.indexOf(key) !== -1);
+	return allKeys.reduce((prev, current) => prev + result.notices[current].length, 0);
+}
+
+export function hasErrors(result?: TValidationResult): boolean {
+	if (!result) {
+		return false;
+	}
+	return result.stats.total_errors > 0;
+}
+
+export function hasWarnings(result?: TValidationResult): boolean {
+	if (!result) {
+		return false;
+	}
+	return result.stats.total_warnings > 0;
+}
+
+export function hasNotices(result?: TValidationResult): boolean {
+	if (!result) {
+		return false;
+	}
+	return result.stats.total_notices > 0;
 }
