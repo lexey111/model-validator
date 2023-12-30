@@ -1,26 +1,38 @@
 import {TValidationResult} from "./validation-types";
 
-export function countErrorsLike(key: string, result: TValidationResult, exact = false): number {
+export function countErrorsLike(key: string, result?: TValidationResult, exact = false): number {
+	if (!result) {
+		return 0;
+	}
+
 	if (exact) {
-		return result.errors[key].length;
+		return result.errors[key]?.length || 0;
 	}
 
 	const allKeys = Object.keys(result.errors).filter(errorPath => errorPath.indexOf(key) !== -1);
 	return allKeys.reduce((prev, current) => prev + result.errors[current].length, 0);
 }
 
-export function countWarningsLike(key: string, result: TValidationResult, exact = false): number {
+export function countWarningsLike(key: string, result?: TValidationResult, exact = false): number {
+	if (!result) {
+		return 0;
+	}
+
 	if (exact) {
-		return result.warnings[key].length;
+		return result.warnings[key]?.length || 0;
 	}
 
 	const allKeys = Object.keys(result.warnings).filter(errorPath => errorPath.indexOf(key) !== -1);
 	return allKeys.reduce((prev, current) => prev + result.warnings[current].length, 0);
 }
 
-export function countNoticesLike(key: string, result: TValidationResult, exact = false): number {
+export function countNoticesLike(key: string, result?: TValidationResult, exact = false): number {
+	if (!result) {
+		return 0;
+	}
+
 	if (exact) {
-		return result.notices[key].length;
+		return result.notices[key]?.length || 0;
 	}
 
 	const allKeys = Object.keys(result.notices).filter(errorPath => errorPath.indexOf(key) !== -1);
