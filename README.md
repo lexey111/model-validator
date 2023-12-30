@@ -210,9 +210,9 @@ errors: {
 Here we have:
 
 1) `path.in.model` means, suddenly, a path in the model. Like `personalData.name`. Very usual dot-separated JS notation.
-    Valid paths: `user.data.personal.name`, `user.contacts`, `user.contacts[0].type`, `user.contacts[].value`.
+    Valid paths: `user.data.personal.name`, `user.contacts[]`, `user.contacts[0].type`, `user.contacts*.value`.
 
-   As you can see, in addition to direct addressing, there is array addressing: `contacts[]` means the entire array (for statements like "must have at least one element"), `contacts[0]` means the first element in the array, `contacts[]` means "for every element in the array".
+   As you can see, in addition to direct addressing, there is array addressing: `contacts[]` means the entire array (for statements like "must have at least one element"), `contacts[0]` means the first element in the array, `contacts[*]` means "for every element in the array".
 
 2) `message`. Validation engine supports 3 level of messaging, in order: 
 
