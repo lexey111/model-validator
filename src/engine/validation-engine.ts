@@ -192,11 +192,10 @@ export const ValidationEngine: IValidationEngine = {
 		const result = getEmptyResult();
 
 		result.stats.started_at = new Date();
-		result.stats.finished_at = new Date();
+		result.stats.finished_at = null;
 		result.level = 'none';
 
 		processValidation(data, model, result);
-
 
 		const end = performance.now();
 
