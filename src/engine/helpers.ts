@@ -1,4 +1,4 @@
-import {TValidationResult} from "./validation-types";
+import {TValidationResult, TValidationViolationLevel} from "./validation-types";
 
 export function countErrorsLike(key: string, result?: TValidationResult, exact = false): number {
 	if (!result) {
@@ -80,4 +80,28 @@ export function hasNotice(key: string, result?: TValidationResult): boolean {
 		return false;
 	}
 	return !!result.notices[key];
+}
+
+export function getValidationClass(result?: TValidationResult, field?: string, exact = true): TValidationViolationLevel {
+	if (!result) {
+		return "unknown";
+	}
+
+	if (!field) {
+		return result.level;
+	}
+
+	if (countErrorsLike(field, result, exact) > 0) {
+		return 'error';
+	}
+
+	if (countWarningsLike(field, result, exact) > 0) {
+		return 'warning';
+	}
+
+	if (countNoticesLike(field, result, exact) > 0) {
+		return 'notice';
+	}
+
+	return 'none';
 }
