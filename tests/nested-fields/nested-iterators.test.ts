@@ -16,7 +16,7 @@ describe('Validate iterators field', () => {
 				]
 			},
 			{
-				'values[].data': {
+				'values[*].data': {
 					validators: [
 						{
 							validator: ValidatorStringRequired,
@@ -55,7 +55,7 @@ describe('Validate iterators field', () => {
 				}
 			},
 			{
-				'personal.values[].values[].tags': {
+				'personal.values[*].values[*].tags': {
 					validators: [
 						{
 							validator: ValidatorArrayLength,

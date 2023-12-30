@@ -30,13 +30,20 @@ function recursiveProcess({pathArray, targetPath, obj, processingFn, skippingFn,
 
 	let iteratorIndex = -1;
 	let isArray = false;
+	let isArrayItself = false;
 
-	if (currentPath.endsWith('[]')) {
+	if (currentPath?.endsWith('[]')) {
 		currentPath = currentPath.substring(0, currentPath.length - 2);
+		isArray = true;
+		isArrayItself = true;
+	}
+
+	if (currentPath?.endsWith('[*]')) {
+		currentPath = currentPath.substring(0, currentPath.length - 3);
 		isArray = true;
 	}
 
-	if (currentPath.endsWith(']')) {
+	if (currentPath?.endsWith(']')) {
 		const parts = /(\w+)\[([^}]+)]/g.exec(currentPath); // ['addresses[0]', 'adresses', '0'...]
 
 		if (parts && parts.length > 1) {
@@ -56,6 +63,7 @@ function recursiveProcess({pathArray, targetPath, obj, processingFn, skippingFn,
 		|| (isArray && !Array.isArray(obj[currentPath]))
 		|| (isArray && iteratorIndex !== -1 && iteratorIndex >= obj[currentPath].length)
 	) {
+
 		skippingFn(targetPath, currentPath);
 		return;
 	}
@@ -63,13 +71,23 @@ function recursiveProcess({pathArray, targetPath, obj, processingFn, skippingFn,
 	let current = obj[currentPath];
 
 	if (isArray && iteratorIndex === -1) {
-		// full iteration, 'addresses[]'
+		if (isArrayItself) {
+			// full iteration, array itself: addresses[]
+			processingFn(current, targetPath);
+			return;
+		}
+
+		// full iteration, 'addresses[]' => 'addresses[0]', 'addresses[1]'...
 		current.forEach((element: any, iteratorIdx: number) => {
 			const iterationArray = pathArray.map((path, idx) => {
 				return idx === currentIndex - 1 ? `${currentPath}[${iteratorIdx}]` : path;
 			});
 
 			const iterationPath = iterationArray.join('.');
+			if (currentIndex === pathArray.length) {
+				processingFn(element, iterationPath);
+				return;
+			}
 
 			recursiveProcess({
 				pathArray: iterationArray,
