@@ -59,3 +59,25 @@ export function hasNotices(result?: TValidationResult): boolean {
 	}
 	return result.stats.total_notices > 0;
 }
+
+
+export function hasError(key: string, result?: TValidationResult): boolean {
+	if (!result) {
+		return false;
+	}
+	return !!result.errors[key];
+}
+
+export function hasWarning(key: string, result?: TValidationResult): boolean {
+	if (!result) {
+		return false;
+	}
+	return !!result.warnings[key];
+}
+
+export function hasNotice(key: string, result?: TValidationResult): boolean {
+	if (!result) {
+		return false;
+	}
+	return !!result.notices[key];
+}
