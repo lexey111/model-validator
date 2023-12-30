@@ -1,42 +1,34 @@
-import {TValidationResult, TValidationViolationLevel} from "./validation-types";
+import {TValidationResult, TValidationViolationLevel, TViolation} from "./validation-types";
 
-export function countErrorsLike(key: string, result?: TValidationResult, exact = false): number {
-	if (!result) {
+function countSmthLike(key: string | RegExp, target?: TViolation, exact = false): number {
+	if (!target || !key) {
 		return 0;
 	}
 
-	if (exact) {
-		return result.errors[key]?.length || 0;
+	if (exact && typeof key === 'string') {
+		return target[key]?.length || 0;
 	}
 
-	const allKeys = Object.keys(result.errors).filter(errorPath => errorPath.indexOf(key) !== -1);
-	return allKeys.reduce((prev, current) => prev + result.errors[current].length, 0);
+	let allKeys;
+
+	if (typeof key === 'string') {
+		allKeys = Object.keys(target).filter(path => path.indexOf(key) !== -1);
+	} else {
+		allKeys = Object.keys(target).filter(path => key.test(path));
+	}
+	return allKeys.reduce((prev, current) => prev + target[current].length, 0);
 }
 
-export function countWarningsLike(key: string, result?: TValidationResult, exact = false): number {
-	if (!result) {
-		return 0;
-	}
-
-	if (exact) {
-		return result.warnings[key]?.length || 0;
-	}
-
-	const allKeys = Object.keys(result.warnings).filter(errorPath => errorPath.indexOf(key) !== -1);
-	return allKeys.reduce((prev, current) => prev + result.warnings[current].length, 0);
+export function countErrorsLike(key: string | RegExp, result?: TValidationResult, exact = false): number {
+	return countSmthLike(key, result?.errors, exact);
 }
 
-export function countNoticesLike(key: string, result?: TValidationResult, exact = false): number {
-	if (!result) {
-		return 0;
-	}
+export function countWarningsLike(key: string | RegExp, result?: TValidationResult, exact = false): number {
+	return countSmthLike(key, result?.warnings, exact);
+}
 
-	if (exact) {
-		return result.notices[key]?.length || 0;
-	}
-
-	const allKeys = Object.keys(result.notices).filter(errorPath => errorPath.indexOf(key) !== -1);
-	return allKeys.reduce((prev, current) => prev + result.notices[current].length, 0);
+export function countNoticesLike(key: string | RegExp, result?: TValidationResult, exact = false): number {
+	return countSmthLike(key, result?.notices, exact);
 }
 
 export function hasErrors(result?: TValidationResult): boolean {
@@ -60,39 +52,28 @@ export function hasNotices(result?: TValidationResult): boolean {
 	return result.stats.total_notices > 0;
 }
 
+function hasSmth(key: string | RegExp, target?: TViolation): boolean {
+	if (!target || !key) {
+		return false;
+	}
+
+	if (typeof key === 'string') {
+		return !!target[key];
+	}
+
+	return Object.keys(target).some(str => key.test(str));
+}
 
 export function hasError(key: string | RegExp, result?: TValidationResult): boolean {
-	if (!result) {
-		return false;
-	}
-
-	if (typeof key === 'string') {
-		return !!result.errors[key];
-	}
-
-	return Object.keys(result.errors).some(str => key.test(str));
+	return hasSmth(key, result?.errors);
 }
 
-export function hasWarning(key: string| RegExp, result?: TValidationResult): boolean {
-	if (!result) {
-		return false;
-	}
-	if (typeof key === 'string') {
-		return !!result.warnings[key];
-	}
-
-	return Object.keys(result.warnings).some(str => key.test(str));
+export function hasWarning(key: string | RegExp, result?: TValidationResult): boolean {
+	return hasSmth(key, result?.warnings);
 }
 
-export function hasNotice(key: string| RegExp, result?: TValidationResult): boolean {
-	if (!result) {
-		return false;
-	}
-	if (typeof key === 'string') {
-		return !!result.notices[key];
-	}
-
-	return Object.keys(result.notices).some(str => key.test(str));
+export function hasNotice(key: string | RegExp, result?: TValidationResult): boolean {
+	return hasSmth(key, result?.notices);
 }
 
 export function getValidationClass(result?: TValidationResult, field?: string, exact = true): TValidationViolationLevel {
