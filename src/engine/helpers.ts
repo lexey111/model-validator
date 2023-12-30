@@ -61,25 +61,38 @@ export function hasNotices(result?: TValidationResult): boolean {
 }
 
 
-export function hasError(key: string, result?: TValidationResult): boolean {
+export function hasError(key: string | RegExp, result?: TValidationResult): boolean {
 	if (!result) {
 		return false;
 	}
-	return !!result.errors[key];
+
+	if (typeof key === 'string') {
+		return !!result.errors[key];
+	}
+
+	return Object.keys(result.errors).some(str => key.test(str));
 }
 
-export function hasWarning(key: string, result?: TValidationResult): boolean {
+export function hasWarning(key: string| RegExp, result?: TValidationResult): boolean {
 	if (!result) {
 		return false;
 	}
-	return !!result.warnings[key];
+	if (typeof key === 'string') {
+		return !!result.warnings[key];
+	}
+
+	return Object.keys(result.warnings).some(str => key.test(str));
 }
 
-export function hasNotice(key: string, result?: TValidationResult): boolean {
+export function hasNotice(key: string| RegExp, result?: TValidationResult): boolean {
 	if (!result) {
 		return false;
 	}
-	return !!result.notices[key];
+	if (typeof key === 'string') {
+		return !!result.notices[key];
+	}
+
+	return Object.keys(result.notices).some(str => key.test(str));
 }
 
 export function getValidationClass(result?: TValidationResult, field?: string, exact = true): TValidationViolationLevel {
