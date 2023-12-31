@@ -127,7 +127,7 @@ const result = ValidationEngine.validate(UserData, UserValidation);
 	stats: {
 		started_at: '...',
 		finished_at: '...',
-		time: 0.3203750103712082,
+		time: 0.32,
 		processed_rules: 4,
 		processed_validators: 4,
 		total_errors: 0,

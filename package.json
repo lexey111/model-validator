@@ -18,6 +18,10 @@
     "validation",
     "form validation",
     "typescript",
+    "react",
+    "angular",
+    "vue",
+    "svelte",
     "npm"
   ],
   "publishConfig": {
