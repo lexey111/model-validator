@@ -2,7 +2,7 @@ import {describe, expect, test} from '@jest/globals';
 import {ValidationEngine} from '../../src/engine/validation-engine';
 import {ValidatorArrayLength, ValidatorStringRequired} from "../../src";
 
-xdescribe('Validate nested array items', () => {
+describe('Validate nested array items', () => {
 	test('should fail check array items', () => {
 		const result = ValidationEngine.validate(
 			{
@@ -25,7 +25,7 @@ xdescribe('Validate nested array items', () => {
 
 		expect(result).toBeDefined();
 		expect(result.level).toBe('error');
-		expect(result.errors['contacts.addresses[*]'][0]).toBe('Length must be > 0');
+		expect(result.errors['contacts.addresses[]'][0]).toBe('Length must be > 0');
 	});
 
 	test('should fail check array items (2)', () => {
@@ -50,7 +50,7 @@ xdescribe('Validate nested array items', () => {
 
 		expect(result).toBeDefined();
 		expect(result.level).toBe('error');
-		expect(result.errors['contacts.addresses[*]'][0]).toBe('Length must be > 2');
+		expect(result.errors['contacts.addresses[]'][0]).toBe('Length must be > 2');
 	});
 
 	test('should pass check array items', () => {
