@@ -20,6 +20,9 @@
     "typescript",
     "npm"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "author": "Oleksii Koshkin",
   "license": "ISC",
   "devDependencies": {
