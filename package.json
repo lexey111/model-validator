@@ -6,7 +6,10 @@
   "private": false,
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "repository": "https://github.com/lexey111/model-validator",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lexey111/model-validator"
+  },
   "files": [
     "dist"
   ],
