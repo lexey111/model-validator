@@ -1,5 +1,5 @@
 {
-  "name": "model-validator",
+  "name": "@lexey111/model-validator",
   "version": "1.0.0",
   "description": "A small package for performing model-level validation for Typescript and Javascript projects",
   "main": "./dist/index.js",
