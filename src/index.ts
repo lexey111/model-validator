@@ -4,6 +4,7 @@ export * from './engine/helpers';
 export {ValidationEngine} from './engine/validation-engine';
 
 export {ValidatorEmail} from './validators/validator-email';
+
 export {ValidatorArrayLength} from './validators/validator-array-length';
 export {ValidatorStringLength} from './validators/validator-string-length';
 export {ValidatorStringPattern} from './validators/validator-string-pattern';

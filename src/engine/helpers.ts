@@ -4,7 +4,6 @@ function countSmthLike(key: string | RegExp, target?: TViolation, exact = false)
 	if (!target || !key) {
 		return 0;
 	}
-
 	if (exact && typeof key === 'string') {
 		return target[key]?.length || 0;
 	}

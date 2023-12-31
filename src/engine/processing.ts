@@ -76,7 +76,6 @@ function recursiveProcess({pathArray, targetPath, obj, processingFn, skippingFn,
 			processingFn(current, targetPath);
 			return;
 		}
-
 		// full iteration, 'addresses[]' => 'addresses[0]', 'addresses[1]'...
 		current.forEach((element: any, iteratorIdx: number) => {
 			const iterationArray = pathArray.map((path, idx) => {
