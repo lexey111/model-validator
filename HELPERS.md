@@ -14,7 +14,7 @@ import {
 	countWarningsLike,
 	countNoticesLike,
 	getValidationClass
-} from 'model-validator';
+} from 'lx-model-validator';
 ```
 
 Let's begin.

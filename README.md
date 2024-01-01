@@ -1,5 +1,21 @@
 # Model Validator
 
+### TL;DR
+
+Backend-like (but applicable on both frontend and backend) validation, where you have data ("model"), a validation model ("validation model"), and an engine that will execute the validation model on the data and then return the result. 
+
+The results are divided into three states: "error", "warning" and "notice", which are declared for each "validator" (elementary checking function) or "rule" (set of validators).
+
+This is a simplified version of the validation engine, supporting only synchronous validation and using simplified syntax.
+
+#### Installation:
+
+`npm i -D lx-model-validator`
+
+[Helper functions](HELPERS.md)
+
+## Documentation
+
 This small package is designed for model-level validation of JS/TS projects.
 
 What does "model-level" mean? It's simple.
