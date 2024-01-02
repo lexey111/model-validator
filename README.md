@@ -12,6 +12,10 @@ This is a simplified version of the validation engine, supporting only synchrono
 
 `npm i -D lx-model-validator`
 
+#### Useful resources
+
+[Demo page](https://lexey111.github.io/home)
+
 [Helper functions](HELPERS.md)
 
 ## Documentation
