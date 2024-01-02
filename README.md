@@ -16,6 +16,8 @@ This is a simplified version of the validation engine, supporting only synchrono
 
 [Demo page](https://lexey111.github.io/home)
 
+[Medium article](https://lexeykoshkin.medium.com/model-validation-814b2dff65e8)
+
 [Helper functions](HELPERS.md)
 
 ## Documentation
